@@ -1,0 +1,59 @@
+
+//butonların bağlı olduğu pinler tanımlandı.
+#define buton1 10
+#define buton2 11
+#define buton3 12
+//LCD için arduino içerisindeki hazır kütüphane çağırıldı.
+#include<LiquidCrystal.h>
+
+//LCD’nin (rs, e, d4, d5, d6 ,d7) pinlerinin arduino üzerinde hangi pinlere bağlı olduğu yazıldı.
+LiquidCrystal lcd(9,8,7,6,5,4);
+//butonların başlangıcı 0 durumu olarak atandı.
+int buton_durumu1=0;
+int buton_durumu2=0;
+int buton_durumu3=0;
+void setup() {
+lcd.begin(16,2);
+//İlk satır 3.sutündan başlayarak “ xxxxxxxxxxx ”,
+//2.satır 1.sutündan başlayarak “xxxxxxxxxxxxxx ” yazdırıldı.
+lcd.setCursor(2,0); 
+lcd.print(" xxxxxxxxxxx ");
+lcd.setCursor(1,1);
+lcd.print("xxxxxxxxxxxxxx ");
+ //butonlar input olarak tanımlandı.
+pinMode(buton1,INPUT);
+pinMode(buton2,INPUT);
+pinMode(buton3,INPUT);
+ 
+  Serial.begin(9600);
+}
+void loop() {
+//buton durumları hangi butondan veri okuyacak tanımlaması yapıldı.
+buton_durumu1=digitalRead(buton1);
+buton_durumu2=digitalRead(buton2);
+buton_durumu3=digitalRead(buton3);
+//1.butona basıldığında yazıyı sola kaydır. 
+if (buton_durumu1==1) {
+delay(200);
+ lcd.scrollDisplayLeft(); 
+}
+//2.butona basıldığında yazıyı başlangıç pozisyonuna getir. 
+if (buton_durumu2==1) {
+lcd.home();
+ 
+} 
+//3.butona basıldığında yazıyı sağa kaydır. 
+ if (buton_durumu3==1) {
+ delay(200);
+ lcd.scrollDisplayRight();
+   
+}
+
+  
+}
+
+
+
+
+
+
